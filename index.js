@@ -69,3 +69,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Create placeholder folder structure and dummy images for demo
 console.log('Cultura Coffee website loaded successfully!');
+
+document.addEventListener("contextmenu", function(event) {
+    event.preventDefault();
+});
+
+// Mencegah penggunaan tombol F12, Ctrl+Shift+I, dan Ctrl+Shift+J
+document.addEventListener("keydown", function(event) {
+    if (event.key === "F12" || 
+        (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) ||
+        (event.ctrlKey && event.key === "U")) {
+        event.preventDefault();
+    }
+});
