@@ -1,4 +1,4 @@
-const hamburger = document.querySelector('.hamburger');
+const hamburger = document.querySelector('.hamburger'); 
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -70,11 +70,16 @@ document.addEventListener('DOMContentLoaded', function() {
 // Create placeholder folder structure and dummy images for demo
 console.log('Cultura Coffee website loaded successfully!');
 
+// ===============================
+// MENCEGAH INSPECT ELEMENT & KLIK KANAN
+// ===============================
+
+// Mencegah klik kanan
 document.addEventListener("contextmenu", function(event) {
     event.preventDefault();
 });
 
-// Mencegah penggunaan tombol F12, Ctrl+Shift+I, dan Ctrl+Shift+J
+// Mencegah kombinasi tombol yang membuka DevTools
 document.addEventListener("keydown", function(event) {
     if (event.key === "F12" || 
         (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) ||
@@ -82,3 +87,20 @@ document.addEventListener("keydown", function(event) {
         event.preventDefault();
     }
 });
+
+// Cegah inspect element dengan mendeteksi DevTools terbuka
+(function() {
+    let devtools = false;
+    let threshold = 160;
+    
+    const checkDevTools = () => {
+        if (window.outerWidth - window.innerWidth > threshold || 
+            window.outerHeight - window.innerHeight > threshold) {
+            devtools = true;
+            alert("Inspect Element terdeteksi! Silakan tutup DevTools.");
+            window.location.reload();
+        }
+    };
+
+    setInterval(checkDevTools, 1000);
+})();
