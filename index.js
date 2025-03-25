@@ -70,37 +70,23 @@ document.addEventListener('DOMContentLoaded', function() {
 // Create placeholder folder structure and dummy images for demo
 console.log('Cultura Coffee website loaded successfully!');
 
-// ===============================
-// MENCEGAH INSPECT ELEMENT & KLIK KANAN
-// ===============================
+// ==========================================
+//  MENAMBAHKAN FITUR ANTI INSPECT ELEMENT
+// ==========================================
 
-// Mencegah klik kanan
+// Cegah klik kanan di seluruh halaman kecuali navbar dan hamburger menu
 document.addEventListener("contextmenu", function(event) {
-    event.preventDefault();
-});
-
-// Mencegah kombinasi tombol yang membuka DevTools
-document.addEventListener("keydown", function(event) {
-    if (event.key === "F12" || 
-        (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) ||
-        (event.ctrlKey && event.key === "U")) {
+    const isNavbarOrMenu = event.target.closest(".navbar") || event.target.closest(".hamburger");
+    if (!isNavbarOrMenu) {
         event.preventDefault();
     }
 });
 
-// Cegah inspect element dengan mendeteksi DevTools terbuka
-(function() {
-    let devtools = false;
-    let threshold = 160;
-    
-    const checkDevTools = () => {
-        if (window.outerWidth - window.innerWidth > threshold || 
-            window.outerHeight - window.innerHeight > threshold) {
-            devtools = true;
-            alert("Inspect Element terdeteksi! Silakan tutup DevTools.");
-            window.location.reload();
-        }
-    };
-
-    setInterval(checkDevTools, 1000);
-})();
+// Cegah kombinasi keyboard tertentu untuk membuka DevTools
+document.addEventListener("keydown", function(event) {
+    if (event.key === "F12" || 
+        (event.ctrlKey && event.shiftKey && (event.key === "I" || event.key === "J")) || 
+        (event.ctrlKey && event.key === "U")) {
+        event.preventDefault();
+    }
+});
